@@ -1,0 +1,21 @@
+
+calculatorbutton {
+    background: #e5e5e5;
+    color: black;
+    border-radius: 2;
+    width: 40;
+    height: 40;
+}
+
+calculatorbutton:active {
+    background: #d6d6d6;
+}
+
+container {
+    background: transparent;
+    padding: 2;
+}
+
+textbox {
+    width: 172;
+}

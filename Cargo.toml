@@ -1,0 +1,10 @@
+[package]
+name = "calculator"
+version = "0.1.0"
+authors = ["OrbTk Focus Time Group"]
+edition = "2018"
+
+[dependencies]
+calculate = "0.5.1"
+lazy_static = "1.2.0"
+orbtk = { path = "/Users/florian.blasius/Projects/Focus-Time/orbtk/" }
