@@ -42,29 +42,6 @@ impl State for MainViewState {
     }
 }
 
-// fn generate_button(state: &Rc<MainViewState>, sight: &str) -> Option<Rc<Widget>> {
-//     let _state = state.clone();
-
-//     Some(Rc::new(Button {
-//         label: Property::new(Label(String::from(sight))),
-//         // event_handlers: vec![Rc::new(MouseEventHandler {
-//         //     on_mouse_up: Some(Rc::new(
-//         //         move |pos: Point, widget: &mut WidgetContainer| -> bool {
-//         //             if check_mouse_condition(pos, widget) {
-//         //                 state.digit(digit);
-//         //                 return false;
-//         //             }
-
-//         //             false
-//         //         },
-//         //     )),
-//         //     ..Default::default()
-//         // })],
-//         selector: (Property::new(Selector::new(Some(String::from("calculatorbutton"))))),
-//         ..Default::default()
-//     }))
-// }
-
 fn generate_button(state: &Rc<MainViewState>, sight: &str) -> Option<Rc<Widget>> {
     let sight = String::from(sight);
     let state = state.clone();
@@ -72,14 +49,10 @@ fn generate_button(state: &Rc<MainViewState>, sight: &str) -> Option<Rc<Widget>>
     Some(Rc::new(Button {
         label: Property::new(Label(sight.clone())),
         event_handlers: vec![Rc::new(MouseEventHandler {
-            on_mouse_up: Some(Rc::new(
-                move |pos: Point, widget: &mut WidgetContainer| -> bool {
-                    if check_mouse_condition(pos, widget) {
-                        state.input(&String::from(sight.clone()));
-                        return false;
-                    }
-
-                    false
+            on_click: Some(Rc::new(
+                move |_pos: Point, _widget: &mut WidgetContainer| -> bool {
+                    state.input(&String::from(sight.clone()));
+                    true
                 },
             )),
             ..Default::default()
@@ -96,7 +69,7 @@ struct MainView {
 
 impl Widget for MainView {
     fn template(&self) -> Template {
-        let state = self.state.clone();
+        let eval_state = self.state.clone();
         let clear_state = self.state.clone();
 
         Template::Single(Rc::new(Column {
@@ -206,14 +179,10 @@ impl Widget for MainView {
                             child: Some(Rc::new(Button {
                                 label: Property::new(Label(String::from("C"))),
                                 event_handlers: vec![Rc::new(MouseEventHandler {
-                                    on_mouse_up: Some(Rc::new(
-                                        move |pos: Point, widget: &mut WidgetContainer| -> bool {
-                                            if check_mouse_condition(pos, widget) {
-                                                clear_state.clear();
-                                                return false;
-                                            }
-
-                                            false
+                                    on_click: Some(Rc::new(
+                                        move |_pos: Point, _widget: &mut WidgetContainer| -> bool {
+                                            clear_state.clear();
+                                            true
                                         },
                                     )),
                                     ..Default::default()
@@ -229,14 +198,10 @@ impl Widget for MainView {
                             child: Some(Rc::new(Button {
                                 label: Property::new(Label(String::from("="))),
                                 event_handlers: vec![Rc::new(MouseEventHandler {
-                                    on_mouse_up: Some(Rc::new(
-                                        move |pos: Point, widget: &mut WidgetContainer| -> bool {
-                                            if check_mouse_condition(pos, widget) {
-                                                state.eval();
-                                                return false;
-                                            }
-
-                                            false
+                                    on_click: Some(Rc::new(
+                                        move |_pos: Point, _widget: &mut WidgetContainer| -> bool {
+                                            eval_state.eval();
+                                            true
                                         },
                                     )),
                                     ..Default::default()
