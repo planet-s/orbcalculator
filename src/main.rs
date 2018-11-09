@@ -3,7 +3,7 @@ use orbtk::*;
 
 extern crate calc;
 
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 use std::sync::Arc;
 
@@ -13,11 +13,13 @@ static LIGHT_THEME_EXTENSION: &'static str = include_str!("light-theme-extension
 #[derive(Default)]
 struct MainViewState {
     result: RefCell<String>,
+    updated: Cell<bool>,
 }
 
 impl MainViewState {
     fn clear(&self) {
         self.result.borrow_mut().clear();
+        self.updated.set(true);
     }
 
     fn eval(&self) {
@@ -27,17 +29,25 @@ impl MainViewState {
         };
 
         (*self.result.borrow_mut()) = result;
+        self.updated.set(true);
     }
     fn input(&self, sight: &str) {
         let result = self.result.borrow().clone();
         (*self.result.borrow_mut()) = format!("{}{}", result, sight);
+        self.updated.set(true);
     }
 }
 
 impl State for MainViewState {
     fn update(&self, widget: &mut WidgetContainer) {
         if let Ok(label) = widget.borrow_mut_property::<Label>() {
-            label.0 = self.result.borrow().clone();
+            if self.updated.get() {
+                label.0 = self.result.borrow().clone();
+            } else {
+                *self.result.borrow_mut() = label.0.clone();
+            }
+
+            self.updated.set(false);
         }
     }
 }
@@ -235,7 +245,7 @@ fn main() {
 
     let theme = format!("{}{}", DARK_THEME_EXTENSION, DEFAULT_THEME_CSS);
     //let theme = format!("{}{}", LIGHT_THEME_EXTENSION, LIGHT_THEME_CSS);
-
+    
     application
         .create_window()
         .with_bounds(Rect::new(0, 0, 176, 256))
@@ -243,8 +253,9 @@ fn main() {
         .with_theme(Theme::parse(&theme))
         .with_root(MainView {
             state: Rc::new(MainViewState::default()),
-            result: Property::new(Label(String::from("0"))),
+            result: Property::new(Label(String::from(""))),
         })
+        .with_debug_flag(false)
         .build();
     application.run();
 }
