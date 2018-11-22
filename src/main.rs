@@ -5,7 +5,6 @@ extern crate calc;
 
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
-use std::sync::Arc;
 
 static DARK_THEME_EXTENSION: &'static str = include_str!("dark-theme-extension.css");
 static _LIGHT_THEME_EXTENSION: &'static str = include_str!("light-theme-extension.css");
