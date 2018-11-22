@@ -1,10 +1,10 @@
 [package]
 name = "calculator"
 version = "0.1.0"
-authors = ["OrbTk Focus Time Group"]
+authors = ["Florian Blasius <flovanpt@posteo.de>"]
 edition = "2018"
 
 [dependencies]
 calculate = "0.5.1"
 lazy_static = "1.2.0"
-orbtk = { path = "/Users/florian.blasius/Projects/Focus-Time/orbtk/" }
+orbtk = { git = "https://gitlab.redox-os.org/redox-os/orbtk.git" }
