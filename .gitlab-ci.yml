@@ -9,7 +9,7 @@ before_script:
 linux:
   before_script:
     - apt-get update && apt-get -y install cmake
-    - apt-get install libsdl2-dev
+    - apt-get install -y libsdl2-dev
   script:
     - rustup default nightly
     - cargo build
