@@ -46,19 +46,19 @@ You can start the widgets example by executing the following command:
 * Run as browser app:
 
 ```text
-cargo node run --browser
+cargo node run --target browser
 ```
 
 * Run as electron app:
 
 ```text
-cargo node run --electron
+cargo node run --target electron
 ```
 
 * Run as cordova app on android:
 
 ```text
-cargo node run --android
+cargo node run --target android
 ```
 
 ## License
