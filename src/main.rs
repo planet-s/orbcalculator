@@ -82,8 +82,7 @@ impl State for MainViewState {
                 Action::Digit(digit) => {
                     self.input.borrow_mut().push(digit);
                     context
-                        .child_by_id("input")
-                        .unwrap()
+                        .child("input")
                         .get_mut::<String16>("text")
                         .push(digit);
                 }
@@ -94,11 +93,7 @@ impl State for MainViewState {
                         self.operator.set(None);
                         self.right_side.set(None);
                         context.widget().get_mut::<String16>("text").clear();
-                        context
-                            .child_by_id("input")
-                            .unwrap()
-                            .get_mut::<String16>("text")
-                            .clear()
+                        context.child("input").get_mut::<String16>("text").clear()
                     }
                     '=' => {
                         self.right_side
@@ -108,11 +103,7 @@ impl State for MainViewState {
                         self.left_side.set(None);
                         self.operator.set(None);
                         self.right_side.set(None);
-                        context
-                            .child_by_id("input")
-                            .unwrap()
-                            .get_mut::<String16>("text")
-                            .clear()
+                        context.child("input").get_mut::<String16>("text").clear()
                     }
                     _ => {
                         if self.input.borrow().is_empty() {
@@ -128,8 +119,7 @@ impl State for MainViewState {
                         }
 
                         context
-                            .child_by_id("input")
-                            .unwrap()
+                            .child("input")
                             .get_mut::<String16>("text")
                             .push(operator);
                         self.input.borrow_mut().clear();
