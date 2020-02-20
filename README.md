@@ -1,6 +1,6 @@
 # OrbCalculator
 
-[![Build status](https://gitlab.redox-os.org/redox-os/orbcalculator/badges/master/build.svg)](https://gitlab.redox-os.org/redox-os/orbcalculator/pipelines)
+[![Build status](https://gitlab.redox-os.org/redox-os/orbcalculator/badges/master/pipeline.svg)](https://gitlab.redox-os.org/redox-os/orbcalculator/pipelines)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 Calculator written in rust, developed with OrbTk https://github.com/redox-os/orbtk.git".
@@ -9,15 +9,14 @@ Calculator written in rust, developed with OrbTk https://github.com/redox-os/orb
 
 ## Platforms
 
-* Redox OS (native | cargo-node)
-* Linux (native | cargo-node)
-* macOS (native | cargo-node)
-* Windows (native | cargo-node)
+* Redox OS
+* Linux
+* macOS
+* Windows
 * openBSD (not tested, but should work)
-* Web (cargo-node)
-* Android (native planned after 0.3 | cargo-node)
-* iOS (native planned after 0.3 | cargo-node planned after 0.3)
-* Ubuntu Touch (native planned  after 0.3 | cargo-node planned for 0.3)
+* Android (planned)
+* iOS (planned)
+* Ubuntu Touch (planned)
 
 ## Run
 
