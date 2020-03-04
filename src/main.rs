@@ -1,4 +1,4 @@
-use std::collections::VecDeque; 
+use std::collections::VecDeque;
 
 use orbtk::prelude::*;
 use orbtk::theme::DEFAULT_THEME_CSS;
@@ -33,7 +33,7 @@ enum Action {
 
 #[derive(Default, AsAny)]
 pub struct MainViewState {
-    actions:VecDeque<Action>,
+    actions: VecDeque<Action>,
 }
 
 impl MainViewState {
@@ -52,7 +52,8 @@ impl MainViewState {
             Err(e) => e.into(),
         };
 
-        ctx.widget().set("text", String16::from(format!("{:.9}", result)));
+        ctx.widget()
+            .set("text", String16::from(format!("{:.9}", result)));
     }
 }
 
@@ -61,7 +62,9 @@ impl State for MainViewState {
         if let Some(action) = self.actions.pop_front() {
             match action {
                 Action::Character(character) => {
-                    ctx.child("input").get_mut::<String16>("text").push(character);
+                    ctx.child("input")
+                        .get_mut::<String16>("text")
+                        .push(character);
                 }
                 Action::Operator(operator) => match operator {
                     'C' => {
@@ -79,16 +82,6 @@ impl State for MainViewState {
     }
 }
 
-fn get_button_selector(primary: bool) -> Selector {
-    let selector = Selector::from("button");
-
-    if primary {
-        selector.class("primary")
-    } else {
-        selector
-    }
-}
-
 fn generate_character_button(
     ctx: &mut BuildContext,
     id: Entity,
@@ -97,17 +90,22 @@ fn generate_character_button(
     column: usize,
     row: usize,
 ) -> Entity {
-    Button::create()
+    let mut button = Button::create()
+        .class("single_content")
         .min_size(48.0, 48.0)
         .text(sight.to_string())
-        .selector(get_button_selector(primary))
         .on_click(move |states, _| -> bool {
             state(id, states).action(Action::Character(sight));
             true
         })
         .attach(Grid::column(column))
-        .attach(Grid::row(row))
-        .build(ctx)
+        .attach(Grid::row(row));
+
+    if primary {
+        button = button.class("primary");
+    }
+
+    button.build(ctx)
 }
 
 fn generate_operation_button(
@@ -118,17 +116,22 @@ fn generate_operation_button(
     column: usize,
     row: usize,
 ) -> Entity {
-    Button::create()
+    let mut button = Button::create()
+        .class("single_content")
         .min_size(48.0, 48.0)
         .text(sight.to_string())
-        .selector(get_button_selector(primary).class("square"))
         .on_click(move |states, _| -> bool {
             state(id, states).action(Action::Operator(sight));
             true
         })
         .attach(Grid::column(column))
-        .attach(Grid::row(row))
-        .build(ctx)
+        .attach(Grid::row(row));
+
+    if primary {
+        button = button.class("primary");
+    }
+
+    button.build(ctx)
 }
 
 widget!(MainView<MainViewState> {
@@ -138,8 +141,7 @@ widget!(MainView<MainViewState> {
 impl Template for MainView {
     fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
         self.name("MainView")
-            .width(212.0)
-            .height(336.0)
+          
             .text("")
             .child(
                 Grid::create()
@@ -147,7 +149,7 @@ impl Template for MainView {
                     .child(
                         Container::create()
                             .padding(8.0)
-                            .selector(Selector::from("container").class("header"))
+                            .class("header")
                             .attach(Grid::row(0))
                             .child(
                                 Grid::create()
@@ -159,9 +161,7 @@ impl Template for MainView {
                                                     .width(0.0)
                                                     .height(14.0)
                                                     .text("")
-                                                    .selector(
-                                                        Selector::from("text-block").id("input"),
-                                                    )
+                                                    .id("input")
                                                     .vertical_alignment("start")
                                                     .build(ctx),
                                             )
@@ -169,7 +169,7 @@ impl Template for MainView {
                                     )
                                     .child(
                                         TextBlock::create()
-                                            .selector(Selector::from("text-block"))
+                                        .element("text-block")
                                             .text(id)
                                             .vertical_alignment("end")
                                             .horizontal_alignment("end")
@@ -181,7 +181,7 @@ impl Template for MainView {
                     )
                     .child(
                         Container::create()
-                            .selector(Selector::from("container").class("content"))
+                            .class("content")
                             .padding(8.0)
                             .attach(Grid::row(1))
                             .child(
@@ -250,7 +250,7 @@ fn main() {
             Window::create()
                 .title("Calculator")
                 .position((100.0, 100.0))
-                .size(212.0, 336.0)
+                .size(220.0, 344.0)
                 .theme(get_theme())
                 .child(MainView::create().build(ctx))
                 .build(ctx)
