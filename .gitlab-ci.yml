@@ -5,6 +5,9 @@ stages:
 build:linux:
   image: rust:latest
   stage: build
+  before_script:
+    - apt-get update -qq
+    - apt-get install -qq build-essential curl git
   script:
     - cargo build
   cache:
