@@ -3,6 +3,7 @@ name = "calculator"
 version = "0.1.0"
 authors = ["Florian Blasius <flovanpt@posteo.de>"]
 edition = "2018"
+description = "Calculator written in rust, developed with OrbTk."
 
 [dependencies]
 calculate = { git = "https://gitlab.redox-os.org/redox-os/calc.git" }
