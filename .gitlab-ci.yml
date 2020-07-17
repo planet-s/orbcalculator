@@ -1,42 +1,37 @@
-image: "redoxos/redoxer:latest"
-
 stages:
   - build
   - test
 
-before_script:
-  - apt-get update -qq
-  - apt-get install -qq git
-
-cache:
-  paths:
+build:linux:
+  image: 'rust:latest'
+  stage: build
+  script:
+    - cargo build
+  cache:
+    paths:
+      - cargo/
       - target/
 
-build:linux:
-  stage: build
-  script:
-      - rustup toolchain add "$(cat rust-toolchain)"
-      - rustup show      # Print version info for debugging
-      - cargo build
-
 build:redox:
+  image: "redoxos/redoxer:latest"
   stage: build
-  variables:
-      TARGET: x86_64-unknown-redox
   script:
-      - export RUSTUP_TOOLCHAIN="$HOME/.redoxer/toolchain"
-      - export PATH="$RUSTUP_TOOLCHAIN/bin:$PATH"
-      - rustup show      # Print version info for debugging
-      - cargo install redoxer
-      - redoxer toolchain
-      - redoxer build --verbose
+    - redoxer build --verbose
+  cache:
+    paths:
+      - cargo/
+      - target/
 
 test:linux:
-    stage: test
-    dependencies:
-        - build:linux
-    script:
-        - cargo test --verbose
+  stage: test
+  before_script:
+    - apt-get update && apt-get -y install cmake
+    - apt-get install libsdl2-dev -y
+  dependencies:
+    - build:linux
+  script:
+    - rustup default nightly
+    - cargo test
 
 fmt:
     stage: test
