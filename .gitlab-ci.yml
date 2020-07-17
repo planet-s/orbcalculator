@@ -8,7 +8,7 @@ build:linux:
   before_script:
     - apt-get update -qq
     - apt-get install -qq build-essential curl git
-    - apt-get install libxkbcommon-dev -y
+    - apt-get install libwayland-cursor0 libxkbcommon-dev libwayland-dev
   script:
     - cargo build
   cache:
