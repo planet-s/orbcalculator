@@ -11,3 +11,8 @@ orbtk = { git = "https://github.com/redox-os/orbtk.git", branch = "develop" }
 
 [features]
 light = []
+
+[package.metadata.bundle]
+name = "OrbCalculator"
+identifier = "redox-os.orbcalculator"
+short_description = "Calculator written in rust, developed with OrbTk."
