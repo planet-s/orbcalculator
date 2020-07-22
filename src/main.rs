@@ -2,9 +2,15 @@ use std::collections::VecDeque;
 
 use orbtk::{
     prelude::*,
-    theme::{COLORS_RON, DARK_THEME_RON, FONTS_RON},
+    theme::{COLORS_RON, FONTS_RON},
     theming::config::ThemeConfig,
 };
+
+#[cfg(not(feature = "light"))]
+use orbtk::theme::DARK_THEME_RON;
+
+#[cfg(feature = "light")]
+use orbtk::theme::LIGHT_THEME_RON;
 
 use calc;
 
@@ -42,7 +48,7 @@ static LIGHT_EXT: &'static str = include_str!("../assets/calculator_light.ron");
 #[cfg(feature = "light")]
 fn theme() -> Theme {
     Theme::from_config(
-        ThemeConfig::from(DARK_THEME_RON)
+        ThemeConfig::from(LIGHT_THEME_RON)
             .extend(ThemeConfig::from(LIGHT_EXT))
             .extend(ThemeConfig::from(COLORS_RON))
             .extend(ThemeConfig::from(FONTS_RON)),
