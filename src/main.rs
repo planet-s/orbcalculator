@@ -2,6 +2,7 @@ use std::collections::VecDeque;
 
 use orbtk::{
     prelude::*,
+    shell::prelude::Key,
     theme::{COLORS_RON, FONTS_RON},
     theming::config::ThemeConfig,
 };
@@ -73,6 +74,8 @@ impl MainState {
     fn action(&mut self, action: Action) {
         self.actions.push_back(action);
     }
+
+    fn key_input(&mut self, key: Key) {}
 
     fn calculate(&mut self, ctx: &mut Context) {
         let result = match calc::eval(
@@ -181,111 +184,117 @@ fn generate_operation_button(
     button.build(ctx)
 }
 
-widget!(MainView<MainState> {
+widget!(MainView<MainState> : KeyDownHandler {
     text: String16
 });
 
 impl Template for MainView {
     fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
-        self.name("MainView").text("").child(
-            Grid::new()
-                .rows(Rows::new().add(72).add("*"))
-                // header
-                .child(
-                    Container::new()
-                        .style(STYLE_HEADER)
-                        .attach(Grid::row(0))
-                        .padding(8)
-                        .child(
-                            Grid::new()
-                                .child(
-                                    ScrollViewer::new()
-                                        .scroll_viewer_mode(("custom", "disabled"))
-                                        .child(
-                                            TextBlock::new()
-                                                .id(ID_INPUT)
-                                                .style(STYLE_INPUT)
-                                                .width(0)
-                                                .height(14)
-                                                .text("")
-                                                .v_align("start")
-                                                .build(ctx),
-                                        )
-                                        .build(ctx),
-                                )
-                                .child(
-                                    TextBlock::new()
-                                        .style(STYLE_RESULT)
-                                        .text(id)
-                                        .v_align("end")
-                                        .h_align("end")
-                                        .build(ctx),
-                                )
-                                .build(ctx),
-                        )
-                        .build(ctx),
-                )
-                // content
-                .child(
-                    Container::new()
-                        .style(STYLE_CONTENT)
-                        .padding(8)
-                        .attach(Grid::row(1))
-                        .child(
-                            Grid::new()
-                                .columns(
-                                    Columns::new()
-                                        .add(48)
-                                        .add(4)
-                                        .add(48)
-                                        .add(4)
-                                        .add(48)
-                                        .add(4)
-                                        .add(48),
-                                )
-                                .rows(
-                                    Rows::new()
-                                        .add(48)
-                                        .add(4)
-                                        .add(48)
-                                        .add(4)
-                                        .add(48)
-                                        .add(4)
-                                        .add(48)
-                                        .add(4)
-                                        .add(48),
-                                )
-                                // add 0
-                                .child(generate_character_button(ctx, id, '(', false, 0, 0))
-                                .child(generate_character_button(ctx, id, ')', false, 2, 0))
-                                .child(generate_character_button(ctx, id, '^', false, 4, 0))
-                                .child(generate_character_button(ctx, id, '/', true, 6, 0))
-                                // add 2
-                                .child(generate_character_button(ctx, id, '7', false, 0, 2))
-                                .child(generate_character_button(ctx, id, '8', false, 2, 2))
-                                .child(generate_character_button(ctx, id, '9', false, 4, 2))
-                                .child(generate_character_button(ctx, id, '*', true, 6, 2))
-                                // add 4
-                                .child(generate_character_button(ctx, id, '4', false, 0, 4))
-                                .child(generate_character_button(ctx, id, '5', false, 2, 4))
-                                .child(generate_character_button(ctx, id, '6', false, 4, 4))
-                                .child(generate_character_button(ctx, id, '-', true, 6, 4))
-                                // add 6
-                                .child(generate_character_button(ctx, id, '1', false, 0, 6))
-                                .child(generate_character_button(ctx, id, '2', false, 2, 6))
-                                .child(generate_character_button(ctx, id, '3', false, 4, 6))
-                                .child(generate_character_button(ctx, id, '+', true, 6, 6))
-                                // add 8
-                                .child(generate_character_button(ctx, id, '0', false, 0, 8))
-                                .child(generate_character_button(ctx, id, '.', false, 2, 8))
-                                .child(generate_operation_button(ctx, id, 'C', false, 4, 8))
-                                .child(generate_operation_button(ctx, id, '=', true, 6, 8))
-                                .build(ctx),
-                        )
-                        .build(ctx),
-                )
-                .build(ctx),
-        )
+        self.name("MainView")
+            .text("")
+            .child(
+                Grid::new()
+                    .rows(Rows::new().add(72).add("*"))
+                    // header
+                    .child(
+                        Container::new()
+                            .style(STYLE_HEADER)
+                            .attach(Grid::row(0))
+                            .padding(8)
+                            .child(
+                                Grid::new()
+                                    .child(
+                                        ScrollViewer::new()
+                                            .mode(("custom", "disabled"))
+                                            .child(
+                                                TextBlock::new()
+                                                    .id(ID_INPUT)
+                                                    .style(STYLE_INPUT)
+                                                    .width(0)
+                                                    .height(14)
+                                                    .text("")
+                                                    .v_align("start")
+                                                    .build(ctx),
+                                            )
+                                            .build(ctx),
+                                    )
+                                    .child(
+                                        TextBlock::new()
+                                            .style(STYLE_RESULT)
+                                            .text(id)
+                                            .v_align("end")
+                                            .h_align("end")
+                                            .build(ctx),
+                                    )
+                                    .build(ctx),
+                            )
+                            .build(ctx),
+                    )
+                    // content
+                    .child(
+                        Container::new()
+                            .style(STYLE_CONTENT)
+                            .padding(8)
+                            .attach(Grid::row(1))
+                            .child(
+                                Grid::new()
+                                    .columns(
+                                        Columns::new()
+                                            .add(48)
+                                            .add(4)
+                                            .add(48)
+                                            .add(4)
+                                            .add(48)
+                                            .add(4)
+                                            .add(48),
+                                    )
+                                    .rows(
+                                        Rows::new()
+                                            .add(48)
+                                            .add(4)
+                                            .add(48)
+                                            .add(4)
+                                            .add(48)
+                                            .add(4)
+                                            .add(48)
+                                            .add(4)
+                                            .add(48),
+                                    )
+                                    // add 0
+                                    .child(generate_character_button(ctx, id, '(', false, 0, 0))
+                                    .child(generate_character_button(ctx, id, ')', false, 2, 0))
+                                    .child(generate_character_button(ctx, id, '^', false, 4, 0))
+                                    .child(generate_character_button(ctx, id, '/', true, 6, 0))
+                                    // add 2
+                                    .child(generate_character_button(ctx, id, '7', false, 0, 2))
+                                    .child(generate_character_button(ctx, id, '8', false, 2, 2))
+                                    .child(generate_character_button(ctx, id, '9', false, 4, 2))
+                                    .child(generate_character_button(ctx, id, '*', true, 6, 2))
+                                    // add 4
+                                    .child(generate_character_button(ctx, id, '4', false, 0, 4))
+                                    .child(generate_character_button(ctx, id, '5', false, 2, 4))
+                                    .child(generate_character_button(ctx, id, '6', false, 4, 4))
+                                    .child(generate_character_button(ctx, id, '-', true, 6, 4))
+                                    // add 6
+                                    .child(generate_character_button(ctx, id, '1', false, 0, 6))
+                                    .child(generate_character_button(ctx, id, '2', false, 2, 6))
+                                    .child(generate_character_button(ctx, id, '3', false, 4, 6))
+                                    .child(generate_character_button(ctx, id, '+', true, 6, 6))
+                                    // add 8
+                                    .child(generate_character_button(ctx, id, '0', false, 0, 8))
+                                    .child(generate_character_button(ctx, id, '.', false, 2, 8))
+                                    .child(generate_operation_button(ctx, id, 'C', false, 4, 8))
+                                    .child(generate_operation_button(ctx, id, '=', true, 6, 8))
+                                    .build(ctx),
+                            )
+                            .build(ctx),
+                    )
+                    .build(ctx),
+            )
+            .on_key_down(move |states, e| {
+                states.get_mut::<MainState>(id).key_input(e.key);
+                true
+            })
     }
 }
 
