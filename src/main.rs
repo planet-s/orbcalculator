@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 
 use orbtk::{
     prelude::*,
-    shell::prelude::Key,
+    shell::prelude::{Key, KeyEvent},
     theme::{COLORS_RON, FONTS_RON},
     theming::config::ThemeConfig,
 };
@@ -62,12 +62,27 @@ fn theme() -> Theme {
 enum Action {
     Character(char),
     Operator(char),
+    Backspace,
 }
 
-#[derive(Default, AsAny)]
+#[derive(AsAny)]
 pub struct MainState {
     actions: VecDeque<Action>,
     input: Entity,
+    allowed_signs: Vec<&'static str>,
+}
+
+impl Default for MainState {
+    fn default() -> Self {
+        MainState {
+            actions: VecDeque::new(),
+            allowed_signs: vec![
+                "(", ")", "^", "/", "*", "-", "+", ".", "0", "1", "2", "3", "4", "5", "6", "7",
+                "8", "9",
+            ],
+            input: Entity(0),
+        }
+    }
 }
 
 impl MainState {
@@ -75,7 +90,22 @@ impl MainState {
         self.actions.push_back(action);
     }
 
-    fn key_input(&mut self, key: Key) {}
+    fn key_input(&mut self, event: KeyEvent) {
+        match event.key {
+            Key::Enter => {
+                self.action(Action::Operator('='));
+            }
+            Key::Backspace => {
+                self.action(Action::Backspace);
+            }
+            _ => {
+                if self.allowed_signs.contains(&event.text.as_str()) {
+                    let chars: Vec<char> = event.text.chars().collect();
+                    self.action(Action::Character(*chars.first().unwrap()));
+                }
+            }
+        }
+    }
 
     fn calculate(&mut self, ctx: &mut Context) {
         let result = match calc::eval(
@@ -123,6 +153,14 @@ impl State for MainState {
                     }
                     _ => {}
                 },
+                Action::Backspace => {
+                    let len = ctx.get_widget(self.input).get::<String16>("text").len();
+                    if len > 0 {
+                        ctx.get_widget(self.input)
+                            .get_mut::<String16>("text")
+                            .remove(len - 1);
+                    }
+                }
             }
         }
     }
@@ -292,7 +330,7 @@ impl Template for MainView {
                     .build(ctx),
             )
             .on_key_down(move |states, e| {
-                states.get_mut::<MainState>(id).key_input(e.key);
+                states.get_mut::<MainState>(id).key_input(e);
                 true
             })
     }
