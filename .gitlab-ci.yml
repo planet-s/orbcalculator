@@ -17,7 +17,7 @@ build:linux:
       - target/
 
 build:redox:
-  image: redoxos/redoxer:latest
+  image: redoxos/redoxer
   stage: build
   script:
     - redoxer build --verbose
