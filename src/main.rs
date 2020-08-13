@@ -232,7 +232,7 @@ impl Template for MainView {
             .text("")
             .child(
                 Grid::new()
-                    .rows(Rows::new().add(72).add("*"))
+                    .rows(Rows::create().push(72).push("*"))
                     // header
                     .child(
                         Container::new()
@@ -277,26 +277,26 @@ impl Template for MainView {
                             .child(
                                 Grid::new()
                                     .columns(
-                                        Columns::new()
-                                            .add(48)
-                                            .add(4)
-                                            .add(48)
-                                            .add(4)
-                                            .add(48)
-                                            .add(4)
-                                            .add(48),
+                                        Columns::create()
+                                            .push(48)
+                                            .push(4)
+                                            .push(48)
+                                            .push(4)
+                                            .push(48)
+                                            .push(4)
+                                            .push(48),
                                     )
                                     .rows(
-                                        Rows::new()
-                                            .add(48)
-                                            .add(4)
-                                            .add(48)
-                                            .add(4)
-                                            .add(48)
-                                            .add(4)
-                                            .add(48)
-                                            .add(4)
-                                            .add(48),
+                                        Rows::create()
+                                            .push(48)
+                                            .push(4)
+                                            .push(48)
+                                            .push(4)
+                                            .push(48)
+                                            .push(4)
+                                            .push(48)
+                                            .push(4)
+                                            .push(48),
                                     )
                                     // add 0
                                     .child(generate_character_button(ctx, id, '(', false, 0, 0))
