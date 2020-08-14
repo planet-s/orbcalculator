@@ -3,15 +3,18 @@ use std::collections::VecDeque;
 use orbtk::{
     prelude::*,
     shell::prelude::{Key, KeyEvent},
-    theme::{COLORS_RON, FONTS_RON},
+    theme::{COLORS_RON, FONTS_RON, REDOX_COLORS_RON},
     theming::config::ThemeConfig,
 };
 
-#[cfg(not(feature = "light"))]
+#[cfg(all(not(feature = "light"), not(feature = "redox")))]
 use orbtk::theme::DARK_THEME_RON;
 
 #[cfg(feature = "light")]
 use orbtk::theme::LIGHT_THEME_RON;
+
+#[cfg(feature = "redox")]
+use orbtk::theme::REDOX_THEME_RON;
 
 use calc;
 
@@ -30,10 +33,10 @@ static ID_INPUT: &'static str = "input";
 
 // --- THEME --
 
-#[cfg(not(feature = "light"))]
+#[cfg(all(not(feature = "light"), not(feature = "redox")))]
 static DARK_EXT: &'static str = include_str!("../assets/calculator_dark.ron");
 
-#[cfg(not(feature = "light"))]
+#[cfg(all(not(feature = "light"), not(feature = "redox")))]
 fn theme() -> Theme {
     Theme::from_config(
         ThemeConfig::from(DARK_THEME_RON)
@@ -43,15 +46,29 @@ fn theme() -> Theme {
     )
 }
 
-#[cfg(feature = "light")]
+#[cfg(all(feature = "light", not(feature = "redox")))]
 static LIGHT_EXT: &'static str = include_str!("../assets/calculator_light.ron");
 
-#[cfg(feature = "light")]
+#[cfg(all(feature = "light", not(feature = "redox")))]
 fn theme() -> Theme {
     Theme::from_config(
         ThemeConfig::from(LIGHT_THEME_RON)
             .extend(ThemeConfig::from(LIGHT_EXT))
             .extend(ThemeConfig::from(COLORS_RON))
+            .extend(ThemeConfig::from(FONTS_RON)),
+    )
+}
+
+#[cfg(all(not(feature = "light"), feature = "redox"))]
+static REDOX_EXT: &'static str = include_str!("../assets/calculator_redox.ron");
+
+#[cfg(all(not(feature = "light"), feature = "redox"))]
+fn theme() -> Theme {
+    Theme::from_config(
+        ThemeConfig::from(REDOX_THEME_RON)
+            .extend(ThemeConfig::from(REDOX_EXT))
+            .extend(ThemeConfig::from(COLORS_RON))
+            .extend(ThemeConfig::from(REDOX_COLORS_RON))
             .extend(ThemeConfig::from(FONTS_RON)),
     )
 }

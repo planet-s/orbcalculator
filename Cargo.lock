@@ -769,7 +769,7 @@ dependencies = [
 [[package]]
 name = "orbtk"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "dces",
  "orbtk-api",
@@ -786,7 +786,7 @@ dependencies = [
 [[package]]
 name = "orbtk-api"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "dces",
  "derive_more",
@@ -808,7 +808,7 @@ dependencies = [
 [[package]]
 name = "orbtk-proc-macros"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "case",
  "proc-macro2",
@@ -819,7 +819,7 @@ dependencies = [
 [[package]]
 name = "orbtk-render"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "image",
  "orbtk-utils",
@@ -831,7 +831,7 @@ dependencies = [
 [[package]]
 name = "orbtk-shell"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "console_error_panic_hook",
  "derive_more",
@@ -848,7 +848,7 @@ dependencies = [
 [[package]]
 name = "orbtk-theme"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "lazy_static",
  "orbtk-theming",
@@ -857,7 +857,7 @@ dependencies = [
 [[package]]
 name = "orbtk-theming"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "ron",
  "serde",
@@ -867,7 +867,7 @@ dependencies = [
 [[package]]
 name = "orbtk-tree"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "dces",
 ]
@@ -875,7 +875,7 @@ dependencies = [
 [[package]]
 name = "orbtk-utils"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "derive_more",
  "ron",
@@ -885,7 +885,7 @@ dependencies = [
 [[package]]
 name = "orbtk-widgets"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#256796bce373bbf2c99eadb2ef1c3f0f4d3e2cc1"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#7c193e529cc0b72bf94fc82d756055a66f7a648d"
 dependencies = [
  "dces",
  "lazy_static",
