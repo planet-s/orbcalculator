@@ -59,10 +59,10 @@ fn theme() -> Theme {
     )
 }
 
-#[cfg(any(all(not(feature = "light"), feature = "redox"), target_os = "linux"))]
+#[cfg(any(all(not(feature = "light"), feature = "redox"), target_os = "redox"))]
 static REDOX_EXT: &'static str = include_str!("../assets/calculator_redox.ron");
 
-#[cfg(any(all(not(feature = "light"), feature = "redox"), target_os = "linux"))]
+#[cfg(any(all(not(feature = "light"), feature = "redox"), target_os = "redox"))]
 fn theme() -> Theme {
     Theme::from_config(
         ThemeConfig::from(REDOX_THEME_RON)
