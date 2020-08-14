@@ -27,7 +27,7 @@ build:redox:
       - target/
 
 test:linux:
-  image: 'rust:latest'
+  image: rust:latest
   stage: test
   dependencies:
     - build:linux
