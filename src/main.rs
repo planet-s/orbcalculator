@@ -7,13 +7,13 @@ use orbtk::{
     theming::config::ThemeConfig,
 };
 
-#[cfg(all(not(feature = "light"), not(feature = "redox")))]
+#[cfg(all(not(feature = "light"), not(feature = "redox"), not(target_os = "redox")))]
 use orbtk::theme::DARK_THEME_RON;
 
 #[cfg(feature = "light")]
 use orbtk::theme::LIGHT_THEME_RON;
 
-#[cfg(feature = "redox")]
+#[cfg(any(all(not(feature = "light"), feature = "redox"), target_os = "redox"))]
 use orbtk::theme::REDOX_THEME_RON;
 
 use calc;
@@ -33,10 +33,10 @@ static ID_INPUT: &'static str = "input";
 
 // --- THEME --
 
-#[cfg(all(not(feature = "light"), not(feature = "redox")))]
+#[cfg(all(not(feature = "light"), not(feature = "redox"), not(target_os = "redox")))]
 static DARK_EXT: &'static str = include_str!("../assets/calculator_dark.ron");
 
-#[cfg(all(not(feature = "light"), not(feature = "redox")))]
+#[cfg(all(not(feature = "light"), not(feature = "redox"), not(target_os = "redox")))]
 fn theme() -> Theme {
     Theme::from_config(
         ThemeConfig::from(DARK_THEME_RON)
