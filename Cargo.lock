@@ -132,15 +132,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "calculator"
-version = "0.1.0"
-dependencies = [
- "calculate",
- "lazy_static",
- "orbtk",
-]
-
-[[package]]
 name = "case"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -528,6 +519,15 @@ name = "numtoa"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8f8bdf33df195859076e54ab11ee78a1b208382d3a26ec40d142ffc1ecc49ef"
+
+[[package]]
+name = "orbcalculator"
+version = "0.1.0"
+dependencies = [
+ "calculate",
+ "lazy_static",
+ "orbtk",
+]
 
 [[package]]
 name = "orbclient"
