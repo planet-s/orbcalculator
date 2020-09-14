@@ -303,7 +303,7 @@ checksum = "3ed85775dcc68644b5c950ac06a2b23768d3bc9390464151aaf27136998dcf9e"
 dependencies = [
  "cfg-if",
  "libc",
- "redox_syscall 0.1.57",
+ "redox_syscall",
  "winapi",
 ]
 
@@ -532,11 +532,11 @@ dependencies = [
 [[package]]
 name = "orbclient"
 version = "0.3.28"
-source = "git+https://gitlab.redox-os.org/redox-os/orbclient.git#43e5a265a81d4c19d36784a4e1a0eafc05ad5b65"
+source = "git+https://gitlab.redox-os.org/redox-os/orbclient.git#6930af334b3d4d41c801e12c89c34ffe5f249370"
 dependencies = [
  "libc",
  "raw-window-handle",
- "redox_syscall 0.2.1",
+ "redox_syscall",
  "sdl2",
  "sdl2-sys",
 ]
@@ -544,7 +544,7 @@ dependencies = [
 [[package]]
 name = "orbtk"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "dces",
  "orbtk_api",
@@ -562,7 +562,7 @@ dependencies = [
 [[package]]
 name = "orbtk_api"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "dces",
  "derive_more",
@@ -586,7 +586,7 @@ dependencies = [
 [[package]]
 name = "orbtk_localization"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "ron",
  "serde",
@@ -596,7 +596,7 @@ dependencies = [
 [[package]]
 name = "orbtk_proc_macros"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "case",
  "proc-macro2",
@@ -607,7 +607,7 @@ dependencies = [
 [[package]]
 name = "orbtk_render"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "image",
  "orbtk_utils",
@@ -620,7 +620,7 @@ dependencies = [
 [[package]]
 name = "orbtk_shell"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "console_error_panic_hook",
  "image",
@@ -636,7 +636,7 @@ dependencies = [
 [[package]]
 name = "orbtk_theme"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "lazy_static",
  "orbtk_theming",
@@ -645,7 +645,7 @@ dependencies = [
 [[package]]
 name = "orbtk_theming"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "ron",
  "serde",
@@ -655,7 +655,7 @@ dependencies = [
 [[package]]
 name = "orbtk_tree"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "dces",
 ]
@@ -663,7 +663,7 @@ dependencies = [
 [[package]]
 name = "orbtk_utils"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "derive_more",
  "lexical-core",
@@ -676,7 +676,7 @@ dependencies = [
 [[package]]
 name = "orbtk_widgets"
 version = "0.3.1-alpha4"
-source = "git+https://github.com/redox-os/orbtk.git?branch=develop#3310cc5053bdc2705eba4954ff471b92ec7dfe6e"
+source = "git+https://github.com/redox-os/orbtk.git?branch=develop#eb4492c0cdc43f120b6e2efb988d79a473e45afd"
 dependencies = [
  "dces",
  "lazy_static",
@@ -863,21 +863,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "41cc0f7e4d5d4544e8861606a285bb08d3e70712ccc7d2b84d7c0ccfaf4b05ce"
 
 [[package]]
-name = "redox_syscall"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48b82c2a1e8eb6e1bfde608de2bcbebd4072aa32d056ea48a986990cd5ca0f5a"
-dependencies = [
- "bitflags",
-]
-
-[[package]]
 name = "redox_termios"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7e891cfe48e9100a70a3b6eb652fef28920c117d366339687bd5576160db0f76"
 dependencies = [
- "redox_syscall 0.1.57",
+ "redox_syscall",
 ]
 
 [[package]]
@@ -887,7 +878,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "de0737333e7a9502c789a36d7c7fa6092a49895d4faa31ca5df163857ded2e9d"
 dependencies = [
  "getrandom",
- "redox_syscall 0.1.57",
+ "redox_syscall",
  "rust-argon2",
 ]
 
@@ -1147,7 +1138,7 @@ checksum = "489997b7557e9a43e192c527face4feacc78bfbe6eed67fd55c4c9e381cba290"
 dependencies = [
  "filetime",
  "libc",
- "redox_syscall 0.1.57",
+ "redox_syscall",
  "xattr",
 ]
 
@@ -1159,7 +1150,7 @@ checksum = "c22cec9d8978d906be5ac94bceb5a010d885c626c4c8855721a4dbd20e3ac905"
 dependencies = [
  "libc",
  "numtoa",
- "redox_syscall 0.1.57",
+ "redox_syscall",
  "redox_termios",
 ]
 
