@@ -7,7 +7,11 @@ use orbtk::{
     theming::config::ThemeConfig,
 };
 
-#[cfg(all(not(feature = "light"), not(feature = "redox"), not(target_os = "redox")))]
+#[cfg(all(
+    not(feature = "light"),
+    not(feature = "redox"),
+    not(target_os = "redox")
+))]
 use orbtk::theme::DARK_THEME_RON;
 
 #[cfg(feature = "light")]
@@ -33,10 +37,18 @@ static ID_INPUT: &'static str = "input";
 
 // --- THEME --
 
-#[cfg(all(not(feature = "light"), not(feature = "redox"), not(target_os = "redox")))]
+#[cfg(all(
+    not(feature = "light"),
+    not(feature = "redox"),
+    not(target_os = "redox")
+))]
 static DARK_EXT: &'static str = include_str!("../assets/calculator_dark.ron");
 
-#[cfg(all(not(feature = "light"), not(feature = "redox"), not(target_os = "redox")))]
+#[cfg(all(
+    not(feature = "light"),
+    not(feature = "redox"),
+    not(target_os = "redox")
+))]
 fn theme() -> Theme {
     Theme::from_config(
         ThemeConfig::from(DARK_THEME_RON)
@@ -125,18 +137,12 @@ impl MainState {
     }
 
     fn calculate(&mut self, ctx: &mut Context) {
-        let result = match calc::eval(
-            ctx.get_widget(self.input)
-                .get::<String16>("text")
-                .to_string()
-                .as_str(),
-        ) {
+        let result = match calc::eval(ctx.get_widget(self.input).get::<String>("text").as_str()) {
             Ok(s) => s.to_string(),
             Err(e) => e.into(),
         };
 
-        ctx.widget()
-            .set("text", String16::from(format!("{:.9}", result)));
+        ctx.widget().set("text", format!("{:.9}", result));
     }
 }
 
@@ -151,31 +157,30 @@ impl State for MainState {
         if let Some(action) = self.actions.pop_front() {
             match action {
                 Action::Character(character) => {
-                    ctx.get_widget(self.input)
-                        .get_mut::<String16>("text")
-                        .push(character);
+                    let mut text =
+                        String16::from(ctx.get_widget(self.input).clone::<String>("text"));
+                    text.push(character);
+                    ctx.get_widget(self.input).set("text", text.to_string());
                 }
                 Action::Operator(operator) => match operator {
                     'C' => {
-                        ctx.widget().get_mut::<String16>("text").clear();
-                        ctx.get_widget(self.input)
-                            .get_mut::<String16>("text")
-                            .clear()
+                        ctx.widget().get_mut::<String>("text").clear();
+                        ctx.get_widget(self.input).get_mut::<String>("text").clear()
                     }
                     '=' => {
                         self.calculate(ctx);
-                        ctx.get_widget(self.input)
-                            .get_mut::<String16>("text")
-                            .clear()
+                        ctx.get_widget(self.input).get_mut::<String>("text").clear()
                     }
                     _ => {}
                 },
                 Action::Backspace => {
-                    let len = ctx.get_widget(self.input).get::<String16>("text").len();
+                    let mut text =
+                        String16::from(ctx.get_widget(self.input).clone::<String>("text"));
+                    let len = text.len();
                     if len > 0 {
-                        ctx.get_widget(self.input)
-                            .get_mut::<String16>("text")
-                            .remove(len - 1);
+                        text.remove(len - 1);
+
+                        ctx.get_widget(self.input).set("text", text.to_string());
                     }
                 }
             }
@@ -240,7 +245,7 @@ fn generate_operation_button(
 }
 
 widget!(MainView<MainState> : KeyDownHandler {
-    text: String16
+    text: String
 });
 
 impl Template for MainView {
