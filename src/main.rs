@@ -87,9 +87,9 @@ fn theme() -> Theme {
 
 // --- THEME --
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Clone)]
 enum Action {
-    Character(char),
+    Character(String),
     Operator(char),
     Backspace,
 }
@@ -106,7 +106,7 @@ impl Default for MainState {
         MainState {
             actions: VecDeque::new(),
             allowed_signs: vec![
-                "(", ")", "^", "/", "*", "-", "+", ".", "0", "1", "2", "3", "4", "5", "6", "7",
+                "(", ")", "/", "*", "-", "+", ".", "0", "1", "2", "3", "4", "5", "6", "7",
                 "8", "9",
             ],
             input: Entity(0),
@@ -129,15 +129,19 @@ impl MainState {
             }
             _ => {
                 if self.allowed_signs.contains(&event.text.as_str()) {
-                    let chars: Vec<char> = event.text.chars().collect();
-                    self.action(Action::Character(*chars.first().unwrap()));
+                    self.action(Action::Character(event.text));
                 }
             }
         }
     }
 
     fn calculate(&mut self, ctx: &mut Context) {
-        let result = match calc::eval(ctx.get_widget(self.input).get::<String>("text").as_str()) {
+        let result = match calc::eval(
+            ctx.get_widget(self.input)
+                .get::<String>("text")
+                .replace("^", "**")
+                .as_str(),
+        ) {
             Ok(s) => s.to_string(),
             Err(e) => e.into(),
         };
@@ -156,10 +160,10 @@ impl State for MainState {
     fn update(&mut self, _: &mut Registry, ctx: &mut Context) {
         if let Some(action) = self.actions.pop_front() {
             match action {
-                Action::Character(character) => {
+                Action::Character(string) => {
                     let mut text =
                         String16::from(ctx.get_widget(self.input).clone::<String>("text"));
-                    text.push(character);
+                    text.insert_str(text.len(), &string);
                     ctx.get_widget(self.input).set("text", text.to_string());
                 }
                 Action::Operator(operator) => match operator {
@@ -191,7 +195,7 @@ impl State for MainState {
 fn generate_character_button(
     ctx: &mut BuildContext,
     id: Entity,
-    sight: char,
+    sight: &'static str,
     primary: bool,
     column: usize,
     row: usize,
@@ -207,7 +211,7 @@ fn generate_character_button(
         .min_size(48, 48)
         .text(sight.to_string())
         .on_click(move |states, _| -> bool {
-            state(id, states).action(Action::Character(sight));
+            state(id, states).action(Action::Character(sight.to_string()));
             true
         })
         .attach(Grid::column(column))
@@ -321,28 +325,28 @@ impl Template for MainView {
                                             .push(48),
                                     )
                                     // add 0
-                                    .child(generate_character_button(ctx, id, '(', false, 0, 0))
-                                    .child(generate_character_button(ctx, id, ')', false, 2, 0))
-                                    .child(generate_character_button(ctx, id, '^', false, 4, 0))
-                                    .child(generate_character_button(ctx, id, '/', true, 6, 0))
+                                    .child(generate_character_button(ctx, id, "(", false, 0, 0))
+                                    .child(generate_character_button(ctx, id, ")", false, 2, 0))
+                                    .child(generate_character_button(ctx, id, "**", false, 4, 0))
+                                    .child(generate_character_button(ctx, id, "/", true, 6, 0))
                                     // add 2
-                                    .child(generate_character_button(ctx, id, '7', false, 0, 2))
-                                    .child(generate_character_button(ctx, id, '8', false, 2, 2))
-                                    .child(generate_character_button(ctx, id, '9', false, 4, 2))
-                                    .child(generate_character_button(ctx, id, '*', true, 6, 2))
+                                    .child(generate_character_button(ctx, id, "7", false, 0, 2))
+                                    .child(generate_character_button(ctx, id, "8", false, 2, 2))
+                                    .child(generate_character_button(ctx, id, "9", false, 4, 2))
+                                    .child(generate_character_button(ctx, id, "*", true, 6, 2))
                                     // add 4
-                                    .child(generate_character_button(ctx, id, '4', false, 0, 4))
-                                    .child(generate_character_button(ctx, id, '5', false, 2, 4))
-                                    .child(generate_character_button(ctx, id, '6', false, 4, 4))
-                                    .child(generate_character_button(ctx, id, '-', true, 6, 4))
+                                    .child(generate_character_button(ctx, id, "4", false, 0, 4))
+                                    .child(generate_character_button(ctx, id, "5", false, 2, 4))
+                                    .child(generate_character_button(ctx, id, "6", false, 4, 4))
+                                    .child(generate_character_button(ctx, id, "-", true, 6, 4))
                                     // add 6
-                                    .child(generate_character_button(ctx, id, '1', false, 0, 6))
-                                    .child(generate_character_button(ctx, id, '2', false, 2, 6))
-                                    .child(generate_character_button(ctx, id, '3', false, 4, 6))
-                                    .child(generate_character_button(ctx, id, '+', true, 6, 6))
+                                    .child(generate_character_button(ctx, id, "1", false, 0, 6))
+                                    .child(generate_character_button(ctx, id, "2", false, 2, 6))
+                                    .child(generate_character_button(ctx, id, "3", false, 4, 6))
+                                    .child(generate_character_button(ctx, id, "+", true, 6, 6))
                                     // add 8
-                                    .child(generate_character_button(ctx, id, '0', false, 0, 8))
-                                    .child(generate_character_button(ctx, id, '.', false, 2, 8))
+                                    .child(generate_character_button(ctx, id, "0", false, 0, 8))
+                                    .child(generate_character_button(ctx, id, ".", false, 2, 8))
                                     .child(generate_operation_button(ctx, id, 'C', false, 4, 8))
                                     .child(generate_operation_button(ctx, id, '=', true, 6, 8))
                                     .build(ctx),
